@@ -88,9 +88,8 @@ var dessertCategories = function(desserts) {
   var output = {};
   return _.reduce(desserts, function(output, currentDessert) {
     var currentType = currentDessert.type;
-    console.log(currentType);
     if (output[currentType] === undefined) {
-      //using output.hasOwnProperty doesn't do anything and output stays empty for some reason
+      //using output.hasOwnProperty doesn't do anything and output stays empty
       output[currentType] = 1;
     } else {
       output[currentType]++;
@@ -103,18 +102,26 @@ var dessertCategories = function(desserts) {
 // movies that came out between 1990 and 2000.
 // TIP: use an array as your accumulator - don't push to an external array!
 var ninetiesKid = function(movies) {
-  return _.reduce(movies, function(currentMovie) {
+  var movieList = [];
+  return _.reduce(movies, function(movieList, currentMovie) {
     if (currentMovie.releaseYear >= 1990 && currentMovie.releaseYear <= 2000) {
-      return currentMovie;
+      movieList.push(currentMovie.title);
     }
-  }, []);
+    return movieList;
+  }, movieList);
 };
 
 // return an boolean stating if there exists a movie with a shorter
 // runtime than your time limit.
 // timeLimit is an integer representing a number of minutes.
 var movieNight = function(movies, timeLimit) {
-
+  var pass = false;
+  return _.reduce(movies, function(timeLimit, currentMovie) {
+    if (currentMovie.runtime <= timeLimit) {
+      pass = true;
+    }
+    return pass;
+  }, timeLimit);
 };
 
 /*
