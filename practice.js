@@ -75,15 +75,10 @@ var cookiesOnly = function(desserts) {
 
 // return the total price of all products.
 var sumTotal = function(products) {
-  // var sum = 0;
-  // return _.reduce(products, function(currentProduct) {
-  //   return sum + currentProduct.price;
-  // });
   var sum = 0;
-  return _.reduce(products, function(currentProduct) {
-    console.log(currentProduct.price);
-    //^^^^^ returns undefined ??????
-    return sum += currentProduct.price;
+  return _.reduce(products, function(sum, currentProduct) {
+    var priceNum = parseFloat(currentProduct.price.substring(1));
+    return sum += priceNum;
   }, sum);
 };
 
@@ -91,16 +86,17 @@ var sumTotal = function(products) {
 // exampleOutput: { dessertType: 3, dessertType2: 1 }
 var dessertCategories = function(desserts) {
   var output = {};
-  return _.reduce(desserts, function(currentDessert) {
-    currentType = currentDessert.type;
-    if (output.hasOwnProperty(currentType) === false) {
-      output.currentType === 1;
+  return _.reduce(desserts, function(output, currentDessert) {
+    var currentType = currentDessert.type;
+    console.log(currentType);
+    if (output[currentType] === undefined) {
+      //using output.hasOwnProperty doesn't do anything and output stays empty for some reason
+      output[currentType] = 1;
     } else {
-      output.currentType++;
+      output[currentType]++;
     }
     return output;
-  }, {});
-  return output;
+  }, output);
 };
 
 // given an array of movie data objects,return an array containing
