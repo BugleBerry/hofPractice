@@ -115,13 +115,23 @@ var ninetiesKid = function(movies) {
 // runtime than your time limit.
 // timeLimit is an integer representing a number of minutes.
 var movieNight = function(movies, timeLimit) {
-  var pass = false;
-  return _.reduce(movies, function(timeLimit, currentMovie) {
-    if (currentMovie.runtime <= timeLimit) {
-      pass = true;
+  // var pass = false;
+  // return _.reduce(movies, function(timeLimit, currentMovie) {
+  //   if (currentMovie.runtime <= timeLimit) {
+  //     pass = true;
+  //   }
+  //   return pass;
+  // }, timeLimit);
+  return _.reduce(movies, function(meetsTimeLimit, currentMovie) {
+    if (meetsTimeLimit) {
+      return true;
     }
-    return pass;
-  }, timeLimit);
+    return currentMovie.runtime <= timeLimit;
+  }, false);
+  //meetsTimeLimit doesn't need to be set to anything since it's just a mannequin boolean value
+  //we set the accumulator to false at the bottom as a default value instead of setting meetsTimeLimit
+  //I think the if statement is false until the bottom return statement is true, which I guess
+  //turns meetsTimeLimit true and leads to every item returning true afterwards
 };
 
 /*
